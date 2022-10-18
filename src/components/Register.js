@@ -1,6 +1,7 @@
 import { ConstructionOutlined } from "@mui/icons-material";
 import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { Box } from "@mui/system";
+import { logDOM } from "@testing-library/dom";
 import axios, { Axios } from "axios";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
@@ -9,13 +10,12 @@ import Footer from "./Footer";
 import Header from "./Header";
 import "./Register.css";
 
-
 const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [userName, setuserName] = useState("");
   const [pass, setpassword] = useState("");
   const [cpass, setcpassword] = useState("");
-
+  const [loader, setloader] = useState(false);
   // TODO: CRIO_TASK_MODULE_REGISTER - Implement the register function
   /**
    * Definition for register handler
@@ -41,7 +41,8 @@ const Register = () => {
    */
   const register = async (formData) => {
     const url = `${config.endpoint}/auth/register`;
-
+    setloader(true);
+    
     if (validateInput()) {
       const res = await axios
         .post(url, {
@@ -49,10 +50,10 @@ const Register = () => {
           password: pass,
         })
         .then((http1) => {
-          setcpassword("")
-          setpassword("")
-          setuserName("")
-          console.log(http1.data)
+          setcpassword("");
+          setpassword("");
+          setuserName("");
+          console.log(http1.data);
           //snack
           enqueueSnackbar(`Success User has Been Created`);
         })
@@ -68,6 +69,8 @@ const Register = () => {
           }
           //enqueueSnackbar(error.config);
         });
+
+        setloader(false);
     }
   };
 
@@ -90,26 +93,38 @@ const Register = () => {
    * -    Check that confirmPassword field has the same value as password field - Passwords do not match
    */
   const validateInput = (data) => {
-   if(userName === ""){
-    enqueueSnackbar("Username is a required field")
-    return false
-   }else if(userName.length<6){
-    enqueueSnackbar("Username must be at least 6 characters")
-    return false
-   }else if(pass === ""){
-    enqueueSnackbar("Password is a required field")
-    return false
-   }else if(pass.length<6 ){
-    enqueueSnackbar("Password must be at least 6 characters")
-    return false
-   }else if(pass !== cpass){
-    enqueueSnackbar("Passwords do not match")
-    return false
-   }
-   else{
-    return true
-   }
+    if (userName === "") {
+      enqueueSnackbar("Username is a required field");
+      return false;
+    } else if (userName.length < 6) {
+      enqueueSnackbar("Username must be at least 6 characters");
+      return false;
+    } else if (pass === "") {
+      enqueueSnackbar("Password is a required field");
+      return false;
+    } else if (pass.length < 6) {
+      enqueueSnackbar("Password must be at least 6 characters");
+      return false;
+    } else if (pass !== cpass) {
+      enqueueSnackbar("Passwords do not match");
+      return false;
+    } else {
+      return true;
+    }
   };
+
+  const renderAuthButton = () => {
+    if (loader) {
+      console.log("hit")
+      return ( <Box sx={{ display: "flex", justifyContent:'center' }}>
+      <CircularProgress />
+    </Box>);
+    } else {
+      return (<Button className="button" variant="contained" onClick={register}>
+      Register Now
+    </Button>);
+    }
+  }
 
   return (
     <Box
@@ -161,9 +176,8 @@ const Register = () => {
               setcpassword(e.target.value);
             }}
           />
-          <Button className="button" variant="contained" onClick={register}>
-            Register Now
-          </Button>
+          {  console.log("hitM")}
+         {renderAuthButton()}
           <p className="secondary-action">
             Already have an account?{" "}
             <a className="link" href="#">
@@ -173,7 +187,6 @@ const Register = () => {
         </Stack>
       </Box>
       <Footer />
-      
     </Box>
   );
 };
