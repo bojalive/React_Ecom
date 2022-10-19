@@ -8,10 +8,15 @@ import { config } from "../App";
 import Footer from "./Footer";
 import Header from "./Header";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
-
+  const [userName, setUserName] = useState("");
+  const [pass, setpass] = useState("");
+  const [loader, setloader] = useState(false);
+  const navigate = useNavigate();
+  const [logged, setlogged] = useState("")
   // TODO: CRIO_TASK_MODULE_LOGIN - Fetch the API response
   /**
    * Perform the Login API call
@@ -38,6 +43,35 @@ const Login = () => {
    *
    */
   const login = async (formData) => {
+    const url = `${config.endpoint}/auth/login`;
+    setloader(true);
+    if (validateInput()) {
+      const res = await axios
+        .post(url, {
+          username: userName,
+          password: pass,
+        })
+        .then((resp) => {
+          setUserName("");
+          setpass("");
+          console.log(resp.data);
+          persistLogin(resp.data.token,resp.data.username,resp.data.balance)
+          enqueueSnackbar("Logged in successfully");
+          navigate("/")
+        })
+        .catch((error) => {
+          if (error.response) {
+            enqueueSnackbar(error.response.data.message);
+          } else if (error.request) {
+            enqueueSnackbar(error.request);
+          } else {
+            enqueueSnackbar(error.message);
+          }
+        });
+    }
+    
+    setloader(false);
+   
   };
 
   // TODO: CRIO_TASK_MODULE_LOGIN - Validate the input
@@ -56,6 +90,15 @@ const Login = () => {
    * -    Check that password field is not an empty value - "Password is a required field"
    */
   const validateInput = (data) => {
+    if (userName === "") {
+      enqueueSnackbar(`Username is a required field`);
+      return false;
+    } else if (pass === "") {
+      enqueueSnackbar(`Password is a required field`);
+      return false;
+    }
+
+    return true;
   };
 
   // TODO: CRIO_TASK_MODULE_LOGIN - Persist user's login information
@@ -75,6 +118,28 @@ const Login = () => {
    * -    `balance` field in localStorage can be used to store the balance amount in the user's wallet
    */
   const persistLogin = (token, username, balance) => {
+
+    localStorage.setItem('token',token)
+    localStorage.setItem('username',username)
+    localStorage.setItem('balance',balance)
+
+  };
+
+  const progressBar = () => {
+    console.log(loader);
+    if (loader) {
+      return (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
+      );
+    } else {
+      return (
+        <Button variant="contained" onClick={login}>
+          Login
+        </Button>
+      );
+    }
   };
 
   return (
@@ -84,9 +149,45 @@ const Login = () => {
       justifyContent="space-between"
       minHeight="100vh"
     >
-      <Header hasHiddenAuthButtons />
+      <Header hasHiddenAuthButtons={true} />
       <Box className="content">
         <Stack spacing={2} className="form">
+          <h2 className="title">Login</h2>
+          <TextField
+            sx={{
+              paddingBottom: 3,
+            }}
+            UserName
+            id="outlined-required"
+            label="UserName"
+            defaultValue=""
+            placeholder="Enter Username"
+            value={userName}
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+          />
+          <TextField
+            sx={{
+              paddingBottom: 3,
+            }}
+            password
+            id="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={pass}
+            onChange={(e) => {
+              setpass(e.target.value);
+            }}
+          />
+          {progressBar()}
+          <p className="secondary-action">
+            Don't have an account?{" "}
+            <a className="link" href="#">
+              Login here
+            </a>
+          </p>
         </Stack>
       </Box>
       <Footer />
