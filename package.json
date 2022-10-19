@@ -19,7 +19,7 @@
         "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2",
-    "@testing-library/dom": "^8.13.0",
+    "@testing-library/dom": "^8.19.0",
     "typescript": "^3.2.1",
     "@babel/core": "^7.17.10"
   },
