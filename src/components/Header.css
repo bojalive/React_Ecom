@@ -16,6 +16,11 @@
     cursor: pointer;
 }
 
+.search-bar{
+    border:none;
+    outline:none;
+    width:350px;
+  }
 .explore-button {
     color: #00a278 !important;
 }

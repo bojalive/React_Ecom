@@ -8,7 +8,6 @@ import { config } from "../App";
 import Footer from "./Footer";
 import Header from "./Header";
 import "./Login.css";
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -19,12 +18,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [logged, setlogged] = useState("")
   // TODO: CRIO_TASK_MODULE_LOGIN - Fetch the API response
-=======
-
-const Login = () => {
-  const { enqueueSnackbar } = useSnackbar();
-
->>>>>>> 87cebf390493aafc619e78b8de78058180be64ca
   /**
    * Perform the Login API call
    * @param {{ username: string, password: string }} formData
@@ -50,7 +43,6 @@ const Login = () => {
    *
    */
   const login = async (formData) => {
-<<<<<<< HEAD
     const url = `${config.endpoint}/auth/login`;
     setloader(true);
     if (validateInput()) {
@@ -83,10 +75,6 @@ const Login = () => {
   };
 
   // TODO: CRIO_TASK_MODULE_LOGIN - Validate the input
-=======
-  };
-
->>>>>>> 87cebf390493aafc619e78b8de78058180be64ca
   /**
    * Validate the input values so that any bad or illegal values are not passed to the backend.
    *
@@ -102,7 +90,6 @@ const Login = () => {
    * -    Check that password field is not an empty value - "Password is a required field"
    */
   const validateInput = (data) => {
-<<<<<<< HEAD
     if (userName === "") {
       enqueueSnackbar(`Username is a required field`);
       return false;
@@ -115,10 +102,6 @@ const Login = () => {
   };
 
   // TODO: CRIO_TASK_MODULE_LOGIN - Persist user's login information
-=======
-  };
-
->>>>>>> 87cebf390493aafc619e78b8de78058180be64ca
   /**
    * Store the login information so that it can be used to identify the user in subsequent API calls
    *
@@ -135,7 +118,6 @@ const Login = () => {
    * -    `balance` field in localStorage can be used to store the balance amount in the user's wallet
    */
   const persistLogin = (token, username, balance) => {
-<<<<<<< HEAD
 
     localStorage.setItem('token',token)
     localStorage.setItem('username',username)
@@ -158,8 +140,6 @@ const Login = () => {
         </Button>
       );
     }
-=======
->>>>>>> 87cebf390493aafc619e78b8de78058180be64ca
   };
 
   return (
@@ -169,7 +149,6 @@ const Login = () => {
       justifyContent="space-between"
       minHeight="100vh"
     >
-<<<<<<< HEAD
       <Header hasHiddenAuthButtons={true} />
       <Box className="content">
         <Stack spacing={2} className="form">
@@ -209,11 +188,6 @@ const Login = () => {
               Login here
             </a>
           </p>
-=======
-      <Header hasHiddenAuthButtons />
-      <Box className="content">
-        <Stack spacing={2} className="form">
->>>>>>> 87cebf390493aafc619e78b8de78058180be64ca
         </Stack>
       </Box>
       <Footer />
