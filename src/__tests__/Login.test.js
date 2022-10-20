@@ -2,7 +2,11 @@ import "@testing-library/jest-dom/extend-expect";
 import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
+<<<<<<< HEAD
 //import { createMemoryHistory } from "history";
+=======
+import { createMemoryHistory } from "history";
+>>>>>>> 87cebf390493aafc619e78b8de78058180be64ca
 import { SnackbarProvider } from "notistack";
 import { Router } from "react-router-dom";
 import { config } from "../App";
