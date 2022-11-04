@@ -1,14 +1,21 @@
+<<<<<<< HEAD
 import { ConstructionOutlined } from "@mui/icons-material";
 import { Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { logDOM } from "@testing-library/dom";
 import axios, { Axios } from "axios";
+=======
+import { Button, CircularProgress, Stack, TextField } from "@mui/material";
+import { Box } from "@mui/system";
+import axios from "axios";
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { config } from "../App";
 import Footer from "./Footer";
 import Header from "./Header";
 import "./Register.css";
+<<<<<<< HEAD
 import { useNavigate  } from "react-router-dom";
 
 const Register = () => {
@@ -19,6 +26,14 @@ const Register = () => {
   const [loader, setloader] = useState(false);
   const navigate = useNavigate();
   // TODO: CRIO_TASK_MODULE_REGISTER - Implement the register function
+=======
+import { useHistory, Link } from "react-router-dom";
+
+const Register = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
+
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
   /**
    * Definition for register handler
    * - Function to be called when the user clicks on the register button or submits the register form
@@ -42,6 +57,7 @@ const Register = () => {
    * }
    */
   const register = async (formData) => {
+<<<<<<< HEAD
     const url = `${config.endpoint}/auth/register`;
     setloader(true);
     
@@ -81,6 +97,10 @@ const Register = () => {
   };
 
   // TODO: CRIO_TASK_MODULE_REGISTER - Implement user input validation logic
+=======
+  };
+
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
   /**
    * Validate the input values so that any bad or illegal values are not passed to the backend.
    *
@@ -99,6 +119,7 @@ const Register = () => {
    * -    Check that confirmPassword field has the same value as password field - Passwords do not match
    */
   const validateInput = (data) => {
+<<<<<<< HEAD
     if (userName === "") {
       enqueueSnackbar("Username is a required field");
       return false;
@@ -131,6 +152,10 @@ const Register = () => {
     }
   }
 
+=======
+  };
+
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
   return (
     <Box
       display="flex"
@@ -138,7 +163,11 @@ const Register = () => {
       justifyContent="space-between"
       minHeight="100vh"
     >
+<<<<<<< HEAD
       <Header hasHiddenAuthButtons={true} />
+=======
+      <Header hasHiddenAuthButtons />
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
       <Box className="content">
         <Stack spacing={2} className="form">
           <h2 className="title">Register</h2>
@@ -148,12 +177,17 @@ const Register = () => {
             variant="outlined"
             title="Username"
             name="username"
+<<<<<<< HEAD
             value={userName}
             placeholder="Enter Username"
             fullWidth
             onChange={(e) => {
               setuserName(e.target.value);
             }}
+=======
+            placeholder="Enter Username"
+            fullWidth
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
           />
           <TextField
             id="password"
@@ -163,11 +197,15 @@ const Register = () => {
             type="password"
             helperText="Password must be atleast 6 characters length"
             fullWidth
+<<<<<<< HEAD
             value={pass}
             placeholder="Enter a password with minimum 6 characters"
             onChange={(e) => {
               setpassword(e.target.value);
             }}
+=======
+            placeholder="Enter a password with minimum 6 characters"
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
           />
           <TextField
             id="confirmPassword"
@@ -176,6 +214,7 @@ const Register = () => {
             name="confirmPassword"
             type="password"
             fullWidth
+<<<<<<< HEAD
             value={cpass}
             onChange={(e) => {
               setcpassword(e.target.value);
@@ -187,6 +226,11 @@ const Register = () => {
             <a className="link" href="Login">
               Login here
             </a>
+=======
+          />
+          <p className="secondary-action">
+            Already have an account?{" "}
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
           </p>
         </Stack>
       </Box>

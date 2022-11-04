@@ -105,6 +105,13 @@ describe("Products Page - Header", () => {
     expect(history.location.pathname).toBe("/register");
   });
 
+<<<<<<< HEAD
+=======
+  it("should have a search bar", () => {
+    const searchInput = screen.getAllByPlaceholderText(/search/i)[0];
+    expect(searchInput).toBeInTheDocument();
+  });
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
 });
 
 describe("Products Page - Header: Logged in", () => {

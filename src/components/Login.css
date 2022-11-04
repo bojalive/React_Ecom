@@ -11,8 +11,17 @@
 .form {
     background-color: white;
     border-radius: 10px;
+<<<<<<< HEAD
     min-width: 80%;
 }
+=======
+    padding: 2rem;
+    min-width: 80%;
+    margin: 2rem;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+>>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
 .title {
     color: #00a278;
 }
