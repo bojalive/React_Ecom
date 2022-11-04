@@ -159,11 +159,10 @@ const Products = () => {
       </Paper>
     );
   };
-  return (
-    <div>
-      <Header children={shit()}></Header>
+ 
+      
 
-  /**
+  /*
    * Perform the API call to fetch the user's cart and return the response
    *
    * @param {string} token - Authentication token returned on login
@@ -277,7 +276,7 @@ const Products = () => {
 
   return (
     <div>
-      <Header>
+      <Header  children={shit()}>
 
       </Header>
 
@@ -295,7 +294,6 @@ const Products = () => {
         placeholder="Search for items/categories"
         name="search"
       />
-<<<<<<< HEAD
       <Grid container>
         <Grid item className="product-grid">
           <Box className="hero">
@@ -308,12 +306,12 @@ const Products = () => {
       </Grid>
 
       <ProductCard product={productData} />
-=======
-        {/* TODO: CRIO_TASK_MODULE_CART - Display the Cart component */}
->>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
       <Footer />
     </div>
   );
 };
 
 export default Products;
+/* return (
+    
+      <Header children={shit()}></Header>/*/
