@@ -184,7 +184,7 @@ const Register = () => {
          {renderAuthButton()}
           <p className="secondary-action">
             Already have an account?{" "}
-            <a className="link" href="#">
+            <a className="link" href="Login">
               Login here
             </a>
           </p>

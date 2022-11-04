@@ -49,7 +49,7 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
           >
             {" "}
           </Avatar>
-          <h4> {localStorage.getItem("username")}</h4>
+          <><h4 className="h4align"> <>{localStorage.getItem("username")}</></h4></>
           <Button variant="contained" onClick={logPage}>
             Logout
           </Button>

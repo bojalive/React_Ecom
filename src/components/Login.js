@@ -124,7 +124,9 @@ const Login = () => {
     localStorage.setItem('balance',balance)
 
   };
-
+  const navToLogin=()=>{
+    navigate('/Login')
+  }
   const progressBar = () => {
     console.log(loader);
     if (loader) {
@@ -184,8 +186,8 @@ const Login = () => {
           {progressBar()}
           <p className="secondary-action">
             Don't have an account?{" "}
-            <a className="link" href="#">
-              Login here
+            <a className="link" href={'Register'}>
+              Register here
             </a>
           </p>
         </Stack>
