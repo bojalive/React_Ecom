@@ -16,6 +16,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import "./Products.css";
 import ProductCard from "./ProductCard";
+import Cart from "./Cart";
 //import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 //import { Search } from "@mui/icons-material";
@@ -35,6 +36,9 @@ import SearchIcon from "@mui/icons-material/Search";
 const Products = () => {
   const [productData, setproductData] = useState([]);
   const [search, setsearch] = useState("");
+  const enqueueSnackbar = useSnackbar();
+  const [cardData, setcardData] = useState([]);
+
   // TODO: CRIO_TASK_MODULE_PRODUCTS - Fetch products data and store it
   /**
    * Make API call to get the products list and store it to display the products
@@ -74,13 +78,14 @@ const Products = () => {
    */
 
   useEffect(() => performAPICall(), []);
+  useEffect(() => fetchCart(), [cardData]);
 
   const performAPICall = async () => {
     const url = `${config.endpoint}/products`;
 
     const res = await axios.get(url).then((resp) => {
       setproductData(resp.data);
-      console.log(resp.data);
+      //console.log(resp.data);
     });
   };
 
@@ -99,16 +104,15 @@ const Products = () => {
    *
    */
   const performSearch = async (e) => {
-    e.preventDefault()
-    const urlSearch = `${config.endpoint}/products/search?value=${search}`
+    e.preventDefault();
+    const urlSearch = `${config.endpoint}/products/search?value=${search}`;
     try {
-       await axios.get(urlSearch)
-       .then(res=>{
-        console.log(res.data)
-        setproductData(res.data)
-       })
+      await axios.get(urlSearch).then((res) => {
+        //console.log(res.data);
+        setproductData(res.data);
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -124,8 +128,7 @@ const Products = () => {
    *    Timer id set for the previous debounce call
    *
    */
-  const debounceSearch = (event, debounceTimeout) => {
-  };
+  const debounceSearch = (event, debounceTimeout) => {};
   const shit = () => {
     return (
       <Paper
@@ -159,8 +162,6 @@ const Products = () => {
       </Paper>
     );
   };
- 
-      
 
   /*
    * Perform the API call to fetch the user's cart and return the response
@@ -190,11 +191,24 @@ const Products = () => {
    *      "message": "Protected route, Oauth2 Bearer token not found"
    * }
    */
-  const fetchCart = async (token) => {
-    if (!token) return;
 
+  const fetchCart = async () => {
+    const cartURL = "http://localhost:8082/api/v1/cart";
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvamFyYWp1IiwiaWF0IjoxNjY5MjczNjI1LCJleHAiOjE2NjkyOTUyMjV9.9w4wYCuAGGCYTMB46UllCssW5OlufX-vB0EIbj1joWI";
+    if (!token) return;
     try {
       // TODO: CRIO_TASK_MODULE_CART - Pass Bearer token inside "Authorization" header to get data from "GET /cart" API and return the response data
+      const cartData = await axios
+        .get(cartURL, {
+          headers: {
+            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvamFyYWp1IiwiaWF0IjoxNjY5MjczNjI1LCJleHAiOjE2NjkyOTUyMjV9.9w4wYCuAGGCYTMB46UllCssW5OlufX-vB0EIbj1joWI"}`,
+          },
+        })
+        .then((res) => {
+          setcardData(res.data);
+        });
+      //return await cartData
     } catch (e) {
       if (e.response && e.response.status === 400) {
         enqueueSnackbar(e.response.data.message, { variant: "error" });
@@ -210,7 +224,6 @@ const Products = () => {
     }
   };
 
-
   // TODO: CRIO_TASK_MODULE_CART - Return if a product already exists in the cart
   /**
    * Return if a product already is present in the cart
@@ -224,8 +237,7 @@ const Products = () => {
    *    Whether a product of given "productId" exists in the "items" array
    *
    */
-  const isItemInCart = (items, productId) => {
-  };
+  const isItemInCart = (items, productId) => {};
 
   /**
    * Perform the API call to add or update items in the user's cart and update local cart data to display the latest cart
@@ -264,21 +276,76 @@ const Products = () => {
    * }
    */
   const addToCart = async (
+    p,
+    qty,
     token,
     items,
     products,
     productId,
-    qty,
+    
     options = { preventDuplicate: false }
   ) => {
+    const url = "http://localhost:8082/api/v1/cart";
+    console.log(p);
+    axios
+      .post(
+        url,
+        {
+          productId: p._id,
+          qty: qty,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvamFyYWp1IiwiaWF0IjoxNjY5MjczNjI1LCJleHAiOjE2NjkyOTUyMjV9.9w4wYCuAGGCYTMB46UllCssW5OlufX-vB0EIbj1joWI"}`,
+          },
+        }
+      )
+      .then((res) => {
+        // console.log('st')
+        // console.log(res.data)
+      });
   };
 
+  const handlerSnackBar = () => {
+   // enqueueSnackbar(`Successful.`, { variant: "success" });
+};
 
+  const handleAddToCart = (p) => {
+  /* if ( cardData.filter(i=>i.productId==p._id).length===0 ) {
+    addToCart(p,1)
+   } else {
+    handlerSnackBar();
+   }*/
+    cardData.filter(i=>i.productId==p._id).length===0 ? addToCart(p,1)  : handlerSnackBar()
+   
+  };
+
+  const handleButton =(flag,p,setcartQty)=>{
+    if (flag === 0) {
+      const minQty = p.qty-1
+      //setcartQty(p.qty-1)
+      addToCart(p,minQty)
+
+    } else {
+      const maxQty = p.qty+1
+     // setcartQty(p.qty+1)
+      addToCart(p,maxQty)
+    }
+    
+      //addToCart(p)
+  }
+  let checkLogin = false;
+  const checkLogged = () => {
+    const userName = localStorage.getItem("token");
+    if (userName !== null) {
+      checkLogin = true;
+    }
+  };
+  checkLogged();
+  //fetchCart
   return (
     <div>
-      <Header  children={shit()}>
-
-      </Header>
+      <Header children={shit()}></Header>
 
       <TextField
         className="search-mobile"
@@ -294,18 +361,26 @@ const Products = () => {
         placeholder="Search for items/categories"
         name="search"
       />
-      <Grid container>
-        <Grid item className="product-grid">
+      <Grid container spacing={2}>
+        <Grid item className="product-grid" xs={12} md={9}>
           <Box className="hero">
             <p className="hero-heading">
               India’s <span className="hero-highlight">FASTEST DELIVERY</span>{" "}
               to your door step
             </p>
           </Box>
+          <ProductCard
+            product={productData}
+            handleAddToCart={handleAddToCart}
+          />
         </Grid>
+        {checkLogin && (
+          <Grid className="cartShit" item xs={12} md={3}>
+            <Cart products={productData} items={cardData} handleQuantity={handleButton} />
+          </Grid>
+        )}
       </Grid>
 
-      <ProductCard product={productData} />
       <Footer />
     </div>
   );

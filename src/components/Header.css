@@ -16,14 +16,11 @@
     cursor: pointer;
 }
 
-<<<<<<< HEAD
 .search-bar{
     border:none;
     outline:none;
     width:350px;
   }
-=======
->>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
 .explore-button {
     color: #00a278 !important;
 }
@@ -32,14 +29,10 @@
     .username-text {
         display: block;
     }
-<<<<<<< HEAD
 }
 .h4align{
-   
-    text-align: center;
-    vertical-align: middle;
-  
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    text-transform:capitalize;
   }
-=======
-}
->>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109

@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import "./ProductCard.css";
-<<<<<<< HEAD
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/styles";
 
@@ -68,19 +67,12 @@ const ProductCard = ({ product, handleAddToCart }) => {
               </CardContent>
               <Rating name="read-only" value={p.rating} readOnly />
               <CardActions>
-                <Button variant="outlined" fullWidth>ADD TO CART</Button>
+                <Button variant="outlined" fullWidth onClick={event=>handleAddToCart(p)}>ADD TO CART</Button>
               </CardActions>
             </Card>
                </Grid>
       ))}
     </Grid>
-=======
-
-const ProductCard = ({ product, handleAddToCart }) => {
-  return (
-    <Card className="card">
-    </Card>
->>>>>>> e7ef4956fa0d9eed00ff1db4b4fed8bbb6626109
   );
 };
 

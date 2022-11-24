@@ -18,7 +18,10 @@
 .product-grid {
   width: 100%;
 }
-
+.cartShit{
+  background-color:#E9F5E1 ;
+  margin-top: 0.5rem !important;
+}
 .hero-heading {
   color: #fff;
   font-size: 1.5rem;
@@ -69,4 +72,8 @@
   .search-desktop {
     display: block !important;
   }
+}
+.shittry{
+  display:  flex;
+  flex-direction: row;
 }
