@@ -7,7 +7,7 @@ import {
 import { Button, IconButton, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory , useNavigate} from "react-router-dom";
 import "./Cart.css";
 import { useState } from "react";
@@ -55,33 +55,12 @@ export const generateCartItemsFrom =  (cartData, productsData) => {
     for (let j = 0; j < productsData.length; j++) {
       if (cartData[i].productId === productsData[j]._id) {
         let tempProductData = productsData[j];
-        tempProductData.qty = cartData[i].qty;
-        // tempProductData.productId = cartData[i].productId
+        tempProductData.qty = cartData[i].qty;        
         array.push(tempProductData);
       }
     }
   }
-/*
-  const url = "http://localhost:8082/api/v1/cart";
-   const shit1 = cartData[0]
-  
-  axios
-    .post(url,
-      shit1,
-      {
-        headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvamFyYWp1IiwiaWF0IjoxNjY5MjczNjI1LCJleHAiOjE2NjkyOTUyMjV9.9w4wYCuAGGCYTMB46UllCssW5OlufX-vB0EIbj1joWI"}`,
-               
-        },
-      },
-    
-    )
-    .then((res) => {
-      // console.log('st')
-      // console.log(res.data)
-    });
-  //console.log("shit")
-  //console.log(array)*/
+
   return array;
 };
 
@@ -169,12 +148,13 @@ const Cart = ({
       qty: 4,
     },
   ],
-  handleQuantity,
+  handleQuantity, flag=true
 }) => {
- 
-  const navigate = useNavigate();
-  const fullCartDetails =  generateCartItemsFrom(items, products);
-  //console.log(products);
+   const navigate = useNavigate();
+  console.log('First Render')
+  //const fullCartDetails =  generateCartItemsFrom(items, products);
+  console.log(products)
+  console.log(items);
   if (!items.length) {
     return (
       <Box className="cart empty">
@@ -189,7 +169,7 @@ const Cart = ({
   return (
     <>
       <Box className="cart">
-      {fullCartDetails.map((element, index) => (
+      {items.map((element, index) => (
             <Box display="flex" alignItems="flex-start" padding="1rem" key={index}>
               <Box className="image-container">
                 <img
@@ -216,11 +196,15 @@ const Cart = ({
                   justifyContent="space-between"
                   alignItems="center"
                 >
+                  {flag &&
                   <ItemQuantity
                  value={element.qty} 
                  handleAdd={handleQuantity}
                  data={element}
-                  />
+                  /> }
+                  {flag ===false &&
+                  <h4>Qty : {element.qty}</h4>
+                  }
                   <Box padding="0.5rem" fontWeight="700">
                     ${element.cost}
                   </Box>
@@ -245,10 +229,10 @@ const Cart = ({
             alignSelf="center"
             data-testid="cart-total"
           >
-            ${getTotalCartValue(fullCartDetails)}
+            ${getTotalCartValue(items)}
           </Box>
         </Box>
-
+       { flag && 
         <Box display="flex" justifyContent="flex-end" className="cart-footer">
           <Button
             color="primary"
@@ -259,7 +243,7 @@ const Cart = ({
           >
             Checkout
           </Button>
-        </Box>
+        </Box>}
       </Box>
     </>
   );

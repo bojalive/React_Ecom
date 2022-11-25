@@ -16,7 +16,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import "./Products.css";
 import ProductCard from "./ProductCard";
-import Cart from "./Cart";
+import Cart,{generateCartItemsFrom} from "./Cart";
 //import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 //import { Search } from "@mui/icons-material";
@@ -38,6 +38,7 @@ const Products = () => {
   const [search, setsearch] = useState("");
   const enqueueSnackbar = useSnackbar();
   const [cardData, setcardData] = useState([]);
+  
 
   // TODO: CRIO_TASK_MODULE_PRODUCTS - Fetch products data and store it
   /**
@@ -85,6 +86,7 @@ const Products = () => {
 
     const res = await axios.get(url).then((resp) => {
       setproductData(resp.data);
+
       //console.log(resp.data);
     });
   };
@@ -194,19 +196,20 @@ const Products = () => {
 
   const fetchCart = async () => {
     const cartURL = "http://localhost:8082/api/v1/cart";
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvamFyYWp1IiwiaWF0IjoxNjY5MjczNjI1LCJleHAiOjE2NjkyOTUyMjV9.9w4wYCuAGGCYTMB46UllCssW5OlufX-vB0EIbj1joWI";
+    const token = localStorage.getItem('token')
+   
     if (!token) return;
     try {
       // TODO: CRIO_TASK_MODULE_CART - Pass Bearer token inside "Authorization" header to get data from "GET /cart" API and return the response data
       const cartData = await axios
         .get(cartURL, {
           headers: {
-            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvamFyYWp1IiwiaWF0IjoxNjY5MjczNjI1LCJleHAiOjE2NjkyOTUyMjV9.9w4wYCuAGGCYTMB46UllCssW5OlufX-vB0EIbj1joWI"}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          setcardData(res.data);
+          setcardData(generateCartItemsFrom(res.data, productData));
+          
         });
       //return await cartData
     } catch (e) {
@@ -278,7 +281,7 @@ const Products = () => {
   const addToCart = async (
     p,
     qty,
-    token,
+    token =  localStorage.getItem('token'),
     items,
     products,
     productId,
@@ -287,6 +290,7 @@ const Products = () => {
   ) => {
     const url = "http://localhost:8082/api/v1/cart";
     console.log(p);
+    //const token = localStorage.getItem('token')
     axios
       .post(
         url,
@@ -296,7 +300,7 @@ const Products = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvamFyYWp1IiwiaWF0IjoxNjY5MjczNjI1LCJleHAiOjE2NjkyOTUyMjV9.9w4wYCuAGGCYTMB46UllCssW5OlufX-vB0EIbj1joWI"}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
