@@ -58,7 +58,7 @@ const Register = () => {
           console.log(http1.data);
           //snack
           enqueueSnackbar(`Success User has Been Created`);
-          navigate("/Login")
+          navigate("/login")
         })
         .catch(function (error) {
           if (error.response) {
@@ -184,7 +184,7 @@ const Register = () => {
          {renderAuthButton()}
           <p className="secondary-action">
             Already have an account?{" "}
-            <a className="link" href="Login">
+            <a className="link" onClick={navigate("/login")}>
               Login here
             </a>
           </p>

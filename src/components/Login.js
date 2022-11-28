@@ -186,7 +186,7 @@ const Login = () => {
           {progressBar()}
           <p className="secondary-action">
             Don't have an account?{" "}
-            <a className="link" href={'Register'}>
+            <a className="link" onClick={navigate('')}>
               Register here
             </a>
           </p>
