@@ -79,7 +79,7 @@ const Products = () => {
    */
 
   useEffect(() => performAPICall(), []);
-  useEffect(() => fetchCart(), [cardData]);
+  useEffect(() => fetchCart(), []);
 
   const performAPICall = async () => {
     const url = `${config.endpoint}/products`;
@@ -305,8 +305,7 @@ const Products = () => {
         }
       )
       .then((res) => {
-        // console.log('st')
-        // console.log(res.data)
+        fetchCart()
       });
   };
 

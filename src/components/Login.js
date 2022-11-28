@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const [userName, setUserName] = useState("");
+  const [user_Name, setUserName] = useState("");
   const [pass, setpass] = useState("");
   const [loader, setloader] = useState(false);
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Login = () => {
     if (validateInput()) {
       const res = await axios
         .post(url, {
-          username: userName,
+          username: user_Name,
           password: pass,
         })
         .then((resp) => {
@@ -90,7 +90,7 @@ const Login = () => {
    * -    Check that password field is not an empty value - "Password is a required field"
    */
   const validateInput = (data) => {
-    if (userName === "") {
+    if (user_Name === "") {
       enqueueSnackbar(`Username is a required field`, { variant: "warning" });
       return false;
     } else if (pass === "") {
@@ -159,12 +159,12 @@ const Login = () => {
             sx={{
               paddingBottom: 3,
             }}
-            UserName
+           // UserName
             id="outlined-required"
-            label="UserName"
-            defaultValue=""
+            label="username"
+            //defaultValue=""
             placeholder="Enter Username"
-            value={userName}
+            value={user_Name}
             onChange={(e) => {
               setUserName(e.target.value);
             }}
@@ -173,7 +173,7 @@ const Login = () => {
             sx={{
               paddingBottom: 3,
             }}
-            password
+           // password
             id="password"
             label="Password"
             type="password"

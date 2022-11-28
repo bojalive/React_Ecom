@@ -589,11 +589,11 @@ const Checkout = () => {
                 const balance = localStorage.getItem("balance");
                 const validateResp = validateRequest(items, addresses);
                 const crap =(() => {
-               const shit =  parseInt(getTotalCartValue) -  parseInt(balance)
-               console.log(shit)
+               const shit =  parseInt(balance) - parseInt(totalCartVal) 
+               
                 localStorage.setItem(
                     "balance",
-                   parseInt(getTotalCartValue) -  parseInt(balance)
+                    shit
                   );
                   navigate("/thanks");
                 })
