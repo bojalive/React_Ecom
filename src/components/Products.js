@@ -195,7 +195,7 @@ const Products = () => {
    */
 
   const fetchCart = async () => {
-    const cartURL = "http://localhost:8082/api/v1/cart";
+    const cartURL = `${config.endpoint}/cart`;
     const token = localStorage.getItem('token')
    
     if (!token) return;
@@ -288,7 +288,7 @@ const Products = () => {
     
     options = { preventDuplicate: false }
   ) => {
-    const url = "http://localhost:8082/api/v1/cart";
+    const url =`${config.endpoint}/cart`;
     console.log(p);
     //const token = localStorage.getItem('token')
     axios

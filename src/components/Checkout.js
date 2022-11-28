@@ -283,7 +283,7 @@ const Checkout = () => {
    * }
    */
   const addAddress = async (token, newAddress) => {
-    const url = "http://localhost:8082/api/v1/user/addresses";
+    const url = `${config.endpoint}/user/addresses`;
     console.log("hit");
     try {
       await axios.post(
@@ -346,7 +346,7 @@ const Checkout = () => {
    * }
    */
   const deleteAddress = async (token, addressId) => {
-    const url = `http://localhost:8082/api/v1/user/addresses/${addressId}`;
+    const url = `${config.endpoint}/addresses${addressId}`;//`http://localhost:8082/api/v1/user/addresses/${addressId}`;
 
     try {
       await axios.delete(url, {
@@ -437,7 +437,7 @@ const Checkout = () => {
    *
    */
   const performCheckout = async (token, items, addresses) => {
-    const url = "http://localhost:8082/api/v1/cart/checkout";
+    const url =  `${config.endpoint}/cart/checkout`;//"http://localhost:8082/api/v1/cart/checkout";
     const response = await axios.post(
       url,
       {
