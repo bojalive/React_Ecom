@@ -6,6 +6,7 @@ import Products from "./components/Products";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import Checkout from "./components/Checkout";
+import Thanks from "./components/Thanks"
 export const config = {
   endpoint: `http://${ipConfig.workspaceIp}:8082/api/v1`,
 };
@@ -20,6 +21,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/Checkout" element={<Checkout />} />
+            <Route path="/thanks" element={<Thanks/>}/>
           </Routes>
         </div>
       </ThemeProvider>

@@ -1,25 +1,25 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import "./Thanks.css";
 
 const Thanks = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const routeToProducts = () => {
-    history.push("/");
+    //history.push("/");
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      history.push("/");
+      navigate("/")
     }
-  }, [history]);
+  }, [navigate]);
 
   return (
     <>
@@ -34,7 +34,7 @@ const Thanks = () => {
           variant="contained"
           size="large"
           id="continue-btn"
-          onClick={routeToProducts}
+          onClick={()=>{navigate("/")}}
         >
           Continue Shopping
         </Button>

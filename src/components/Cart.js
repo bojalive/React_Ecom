@@ -151,10 +151,10 @@ const Cart = ({
   handleQuantity, flag=true
 }) => {
    const navigate = useNavigate();
-  console.log('First Render')
+  //console.log('First Render')
   //const fullCartDetails =  generateCartItemsFrom(items, products);
-  console.log(products)
-  console.log(items);
+  //console.log(products)
+  //console.log(items);
   if (!items.length) {
     return (
       <Box className="cart empty">

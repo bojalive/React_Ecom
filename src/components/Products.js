@@ -380,6 +380,7 @@ const Products = () => {
         </Grid>
         {checkLogin && (
           <Grid className="cartShit" item xs={12} md={3}>
+            {console.log(productData)}
             <Cart products={productData} items={cardData} handleQuantity={handleButton} />
           </Grid>
         )}
