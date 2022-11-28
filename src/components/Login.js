@@ -125,7 +125,7 @@ const Login = () => {
 
   };
   const navToLogin=()=>{
-    navigate('/Login')
+    navigate('/login')
   }
   const progressBar = () => {
     console.log(loader);
