@@ -184,7 +184,7 @@ const Register = () => {
          {renderAuthButton()}
           <p className="secondary-action">
             Already have an account?{" "}
-            <a className="link" onClick={navigate("/login")}>
+            <a className="link" href="login">
               Login here
             </a>
           </p>

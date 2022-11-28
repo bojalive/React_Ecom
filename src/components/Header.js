@@ -18,7 +18,7 @@ const Header = ({ children, hasHiddenAuthButtons }) => {
   const logPage = () => {
     localStorage.clear();
     navigate("/login");
-    {//window.location.reload();}
+    window.location.reload();
   };
   const regPage = () => {
     localStorage.clear();
